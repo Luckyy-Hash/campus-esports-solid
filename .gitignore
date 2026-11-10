@@ -15,3 +15,4 @@ generate_submission_pdf.js
 # Temporary build artifacts
 build/
 .vscode/
+

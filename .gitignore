@@ -1,0 +1,17 @@
+# Object files and executables
+*.o
+*.obj
+*.exe
+*.out
+
+# Node dependencies (used for screenshot generation)
+node_modules/
+package-lock.json
+package.json
+vscode_template.js
+generate_all_screenshots.js
+generate_submission_pdf.js
+
+# Temporary build artifacts
+build/
+.vscode/

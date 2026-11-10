@@ -5,6 +5,7 @@
 **Registration Number:** 23BCE0329  
 **Institution:** Vellore Institute of Technology (VIT), Vellore  
 **Role:** Sole Contributor  
+**GitHub Repository:** [https://github.com/latheeshreddy/campus-esports-solid](https://github.com/latheeshreddy/campus-esports-solid)  
 
 ---
 

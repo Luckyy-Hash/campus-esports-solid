@@ -5,8 +5,7 @@
 **Registration Number:** 23BCE0329  
 **Institution:** Vellore Institute of Technology (VIT), Vellore  
 **Role:** Sole Contributor  
-**Repository Location:** Local Git Repository at `C:\Users\lathe\Desktop\New folder (2)`  
-**Target Remote:** `https://github.com/latheeshreddy/campus-esports-solid` (Staged & configured, ready to push upon remote creation)  
+**GitHub Repository:** [https://github.com/Luckyy-Hash/campus-esports-solid](https://github.com/Luckyy-Hash/campus-esports-solid)  
 
 ---
 
@@ -195,15 +194,15 @@ Sending SMS text: Registration successful for VIT_Strikers
 
 | Screenshot # | File Name | Case Study Section | Visual Content & Key SOLID Elements |
 |---|---|---|---|
-| **Screenshot 1** | `Screenshot_1_Project_Structure.png` | **Part B - Project Setup** | Full VS Code Explorer showing all 7 headers (`include/`), 5 sources (`src/`), build scripts, and unified files. |
-| **Screenshot 2** | `Screenshot_2_Interface_Implementation.png` | **Part 1: Interfaces (ISP)** | Dual editor panes showing pure abstract classes `INotificationService` and `IFeeCalculator` with virtual methods and default virtual destructors. |
-| **Screenshot 3** | `Screenshot_3_Email_and_SMS_Notification.png` | **Part 1 & Extension (SRP, OCP)** | Dual editor panes showing `EmailNotification` (SRP) and `SMSNotification` (OCP extension) implementing `send() override`. |
-| **Screenshot 4** | `Screenshot_4_Fee_Calculation.png` | **Part 2: OCP & LSP** | Side-by-side view of `SoloRegistration` (Rs. 150) and `SquadRegistration` (Rs. 500) substituting `IFeeCalculator`. |
-| **Screenshot 5** | `Screenshot_5_Registration_Manager.png` | **Part 2: DIP Implementation** | `RegistrationManager.h` and `.cpp` showing constructor dependency injection with `std::shared_ptr<INotificationService>`. |
-| **Screenshot 6** | `Screenshot_6_Main_Function.png` | **Part 3: Main Execution** | `main()` function instantiating services, performing dependency injection, and executing Solo and Squad registrations. |
-| **Screenshot 7** | `Screenshot_7_Compilation.png` | **Part 3: Build Verification** | VS Code integrated terminal showing successful `g++` compilation with zero errors and zero warnings. |
-| **Screenshot 8** | `Screenshot_8_Program_Execution.png` | **Part 3: Execution Output** | Terminal capture displaying registration for `Latheesh_Solo` (Rs. 150, Email) and `VIT_Strikers` (Rs. 500, SMS). |
-| **Screenshot 9** | `Screenshot_9_SOLID_Principles_Demonstration.png` | **Part C - Application of SOLID** | Comprehensive visual dashboard correlating each SOLID principle (SRP, OCP, LSP, ISP, DIP) directly to project classes and code. |
+| **Screenshot 1** | [`Screenshot_1_Project_Structure.png`](Case_Study_Screenshots/Screenshot_1_Project_Structure.png) | **Part B - Project Setup** | Full VS Code Explorer showing all 7 headers (`include/`), 5 sources (`src/`), build scripts, and unified files. |
+| **Screenshot 2** | [`Screenshot_2_Interface_Implementation.png`](Case_Study_Screenshots/Screenshot_2_Interface_Implementation.png) | **Part 1: Interfaces (ISP)** | Dual editor panes showing pure abstract classes `INotificationService` and `IFeeCalculator` with virtual methods and default virtual destructors. |
+| **Screenshot 3** | [`Screenshot_3_Email_and_SMS_Notification.png`](Case_Study_Screenshots/Screenshot_3_Email_and_SMS_Notification.png) | **Part 1 & Extension (SRP, OCP)** | Dual editor panes showing `EmailNotification` (SRP) and `SMSNotification` (OCP extension) implementing `send() override`. |
+| **Screenshot 4** | [`Screenshot_4_Fee_Calculation.png`](Case_Study_Screenshots/Screenshot_4_Fee_Calculation.png) | **Part 2: OCP & LSP** | Side-by-side view of `SoloRegistration` (Rs. 150) and `SquadRegistration` (Rs. 500) substituting `IFeeCalculator`. |
+| **Screenshot 5** | [`Screenshot_5_Registration_Manager.png`](Case_Study_Screenshots/Screenshot_5_Registration_Manager.png) | **Part 2: DIP Implementation** | `RegistrationManager.h` and `.cpp` showing constructor dependency injection with `std::shared_ptr<INotificationService>`. |
+| **Screenshot 6** | [`Screenshot_6_Main_Function.png`](Case_Study_Screenshots/Screenshot_6_Main_Function.png) | **Part 3: Main Execution** | `main()` function instantiating services, performing dependency injection, and executing Solo and Squad registrations. |
+| **Screenshot 7** | [`Screenshot_7_Compilation.png`](Case_Study_Screenshots/Screenshot_7_Compilation.png) | **Part 3: Build Verification** | VS Code integrated terminal showing successful `g++` compilation with zero errors and zero warnings. |
+| **Screenshot 8** | [`Screenshot_8_Program_Execution.png`](Case_Study_Screenshots/Screenshot_8_Program_Execution.png) | **Part 3: Execution Output** | Terminal capture displaying registration for `Latheesh_Solo` (Rs. 150, Email) and `VIT_Strikers` (Rs. 500, SMS). |
+| **Screenshot 9** | [`Screenshot_9_SOLID_Principles_Demonstration.png`](Case_Study_Screenshots/Screenshot_9_SOLID_Principles_Demonstration.png) | **Part C - Application of SOLID** | Comprehensive visual dashboard correlating each SOLID principle (SRP, OCP, LSP, ISP, DIP) directly to project classes and code. |
 
 ---
 

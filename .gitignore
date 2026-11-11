@@ -4,6 +4,9 @@
 *.exe
 *.out
 
+# PDF documents (kept locally, excluded from repository)
+*.pdf
+
 # Node dependencies (used for screenshot generation)
 node_modules/
 package-lock.json
@@ -15,4 +18,3 @@ generate_submission_pdf.js
 # Temporary build artifacts
 build/
 .vscode/
-

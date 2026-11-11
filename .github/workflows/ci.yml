@@ -1,0 +1,67 @@
+name: C++17 CI Build & Verification
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-linux:
+    name: Build & Test (Ubuntu Linux - GCC)
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Verify Compiler Version
+      run: |
+        g++ --version
+
+    - name: Compile Modular Project (C++17)
+      run: |
+        g++ -std=c++17 -Wall -Wextra -Iinclude main.cpp src/EmailNotification.cpp src/SMSNotification.cpp src/SoloRegistration.cpp src/SquadRegistration.cpp src/RegistrationManager.cpp -o campus_esports
+
+    - name: Compile Unified Single-File Project (Case Study Benchmark)
+      run: |
+        g++ -std=c++17 -Wall -Wextra campus_esports_unified.cpp -o campus_esports_unified
+
+    - name: Execute Non-Interactive Batch Verification
+      run: |
+        ./campus_esports --demo
+        ./campus_esports_unified
+
+    - name: Test Automated Interactive Piped Session
+      run: |
+        printf "1\nLatheesh_Solo\n2\nVIT_Strikers\n3\n4\n5\n6\n7\n8\n" | ./campus_esports
+
+  build-windows:
+    name: Build & Test (Windows - MinGW)
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up GCC / MinGW
+      uses: egor-tensin/setup-mingw@v2
+      with:
+        platform: x64
+
+    - name: Verify MinGW Compiler
+      run: |
+        g++ --version
+
+    - name: Compile Modular Project
+      run: |
+        g++ -std=c++17 -Wall -Wextra -Iinclude main.cpp src\EmailNotification.cpp src\SMSNotification.cpp src\SoloRegistration.cpp src\SquadRegistration.cpp src\RegistrationManager.cpp -o campus_esports.exe
+
+    - name: Compile Unified Project
+      run: |
+        g++ -std=c++17 -Wall -Wextra campus_esports_unified.cpp -o campus_esports_unified.exe
+
+    - name: Run Windows Verification
+      run: |
+        .\campus_esports.exe --demo
+        .\campus_esports_unified.exe

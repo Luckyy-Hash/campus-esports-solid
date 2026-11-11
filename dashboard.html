@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campus Esports Tournament Registration - Interactive Companion Dashboard</title>
+<style>
+    :root {
+        --bg-primary: #0f172a;
+        --bg-card: #1e293b;
+        --bg-card-hover: #293548;
+        --accent: #38bdf8;
+        --accent-glow: rgba(56, 189, 248, 0.2);
+        --text-primary: #f8fafc;
+        --text-secondary: #94a3b8;
+        --border: #334155;
+        --success: #4ade80;
+        --warning: #fbbf24;
+        --danger: #f87171;
+        --email-tag: #818cf8;
+        --sms-tag: #34d399;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        line-height: 1.6;
+        padding: 24px 20px;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    header {
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 20px;
+        margin-bottom: 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+    .title-group h1 {
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        color: #fff;
+    }
+    .badge {
+        display: inline-block;
+        background: #0284c7;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 3px 10px;
+        border-radius: 9999px;
+        margin-left: 10px;
+        vertical-align: middle;
+        text-transform: uppercase;
+    }
+    .disclaimer-banner {
+        background: rgba(30, 41, 59, 0.8);
+        border: 1px solid var(--border);
+        border-left: 4px solid var(--accent);
+        padding: 12px 18px;
+        border-radius: 6px;
+        font-size: 13px;
+        color: var(--text-secondary);
+        margin-bottom: 24px;
+    }
+    .disclaimer-banner strong { color: var(--text-primary); }
+    .meta-pills {
+        display: flex;
+        gap: 12px;
+        font-size: 13px;
+        color: var(--text-secondary);
+    }
+    .pill {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        padding: 4px 12px;
+        border-radius: 6px;
+    }
+    .pill span { color: var(--accent); font-weight: 600; }
+    
+    /* Stats Row */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+    .stat-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        padding: 18px 20px;
+        border-radius: 10px;
+        transition: transform 0.2s, border-color 0.2s;
+    }
+    .stat-card:hover {
+        transform: translateY(-2px);
+        border-color: var(--accent);
+    }
+    .stat-label {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--text-secondary);
+        margin-bottom: 6px;
+    }
+    .stat-value {
+        font-size: 28px;
+        font-weight: 800;
+        color: #fff;
+    }
+    
+    /* Main Layout */
+    .main-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-bottom: 24px;
+    }
+    @media (max-width: 900px) {
+        .main-grid { grid-template-columns: 1fr; }
+    }
+    .panel {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+    .panel-header {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 10px;
+    }
+    
+    /* Registration Form */
+    .form-group {
+        margin-bottom: 16px;
+    }
+    label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        margin-bottom: 6px;
+    }
+    input[type="text"], select {
+        width: 100%;
+        padding: 10px 14px;
+        background: #0f172a;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        color: #fff;
+        font-size: 14px;
+        outline: none;
+        transition: border-color 0.2s;
+    }
+    input[type="text"]:focus, select:focus {
+        border-color: var(--accent);
+    }
+    .btn {
+        background: #0284c7;
+        color: #fff;
+        border: none;
+        padding: 10px 18px;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background 0.2s;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+    .btn:hover { background: #0369a1; }
+    .btn-secondary {
+        background: #334155;
+    }
+    .btn-secondary:hover { background: #475569; }
+    
+    /* Live Log */
+    .log-container {
+        background: #0b1120;
+        border: 1px solid #1e293b;
+        border-radius: 6px;
+        padding: 12px;
+        font-family: 'Consolas', 'Courier New', monospace;
+        font-size: 13px;
+        height: 240px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .log-entry {
+        padding: 6px 10px;
+        border-radius: 4px;
+        background: #1e293b;
+        border-left: 3px solid #64748b;
+    }
+    .log-entry.email { border-left-color: var(--email-tag); }
+    .log-entry.sms { border-left-color: var(--sms-tag); }
+    .log-entry.success { border-left-color: var(--success); }
+    
+    /* Table */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13.5px;
+    }
+    th, td {
+        padding: 10px 14px;
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+    }
+    th {
+        color: var(--text-secondary);
+        font-weight: 600;
+        font-size: 12px;
+        text-transform: uppercase;
+    }
+    tr:hover td { background: var(--bg-card-hover); }
+    .tag {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 700;
+    }
+    .tag-solo { background: rgba(129, 140, 248, 0.2); color: #a5b4fc; }
+    .tag-squad { background: rgba(52, 211, 153, 0.2); color: #6ee7b7; }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="title-group">
+            <h1>Campus Esports Tournament <span class="badge">Companion Dashboard</span></h1>
+            <p style="color: var(--text-secondary); font-size: 14px; margin-top: 4px;">
+                Visual Interactive Simulator &middot; Course BCSE102L
+            </p>
+        </div>
+        <div class="meta-pills">
+            <div class="pill">Student: <span>P. Latheesh Reddy</span></div>
+            <div class="pill">Reg No: <span>23BCE0329</span></div>
+            <div class="pill">VIT Vellore</div>
+        </div>
+    </header>
+
+    <div class="disclaimer-banner">
+        <strong>Note for Evaluation:</strong> This graphical dashboard is an <em>optional interactive visualization companion</em> added in Phase 2. The core academic project is the independently compilable C++17 modular console application documented in the submitted case study and repository.
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-label">Total Participants</div>
+            <div class="stat-value" id="statTotal">2</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Solo Players (Rs. 150)</div>
+            <div class="stat-value" id="statSolo">1</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Squad Teams (Rs. 500)</div>
+            <div class="stat-value" id="statSquad">1</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Total Fees Collected</div>
+            <div class="stat-value" style="color: var(--success);" id="statFees">Rs. 650.00</div>
+        </div>
+    </div>
+
+    <!-- Interactive Grid -->
+    <div class="main-grid">
+        <!-- Register Form -->
+        <div class="panel">
+            <div class="panel-header">
+                <span>Interactive Tournament Registration</span>
+                <span style="font-size: 12px; color: var(--accent);">SOLID Principle Testing</span>
+            </div>
+            <form id="regForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="pName">Participant / Team Name</label>
+                    <input type="text" id="pName" placeholder="e.g. Latheesh_Solo or VIT_Strikers" required>
+                </div>
+                <div class="form-group">
+                    <label for="pType">Registration Category (IFeeCalculator)</label>
+                    <select id="pType" onchange="updateFeePreview()">
+                        <option value="Solo">Solo Player (Rs. 150 - Email Notification)</option>
+                        <option value="Squad">Squad Team (Rs. 500 - SMS Notification)</option>
+                    </select>
+                </div>
+                <div style="margin-bottom: 16px; font-size: 13px; color: var(--text-secondary);">
+                    Calculated Amount: <strong style="color: var(--accent);" id="feePreview">Rs. 150.00</strong>
+                    <br>
+                    <span style="font-size: 12px;" id="solidPreviewNote">Channel: EmailNotification (SRP) via INotificationService</span>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button type="submit" class="btn">Register Participant</button>
+                    <button type="button" class="btn btn-secondary" onclick="demoTestNotification('email')">Test Email</button>
+                    <button type="button" class="btn btn-secondary" onclick="demoTestNotification('sms')">Test SMS</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Notification & Activity Log -->
+        <div class="panel">
+            <div class="panel-header">
+                <span>Notification & Event Log</span>
+                <button onclick="clearLogs()" style="background:none;border:none;color:var(--text-secondary);cursor:pointer;font-size:12px;">Clear Log</button>
+            </div>
+            <div class="log-container" id="logBox">
+                <div class="log-entry email">
+                    <strong>[EmailNotification]</strong> Sending Email: Registration successful for Latheesh_Solo
+                </div>
+                <div class="log-entry sms">
+                    <strong>[SMSNotification]</strong> Sending SMS text: Registration successful for VIT_Strikers
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table of Participants -->
+    <div class="panel">
+        <div class="panel-header">
+            <span>Session Participant Directory</span>
+            <span style="font-size: 12px; color: var(--text-secondary);">Session Storage</span>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Participant / Team Name</th>
+                    <th>Category</th>
+                    <th>Fee Calculated</th>
+                    <th>Notification Channel</th>
+                </tr>
+            </thead>
+            <tbody id="participantBody">
+                <tr>
+                    <td>1</td>
+                    <td><strong>Latheesh_Solo</strong></td>
+                    <td><span class="tag tag-solo">Solo</span></td>
+                    <td>Rs. 150.00</td>
+                    <td>EmailNotification</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><strong>VIT_Strikers</strong></td>
+                    <td><span class="tag tag-squad">Squad</span></td>
+                    <td>Rs. 500.00</td>
+                    <td>SMSNotification</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    let participants = [
+        { name: "Latheesh_Solo", type: "Solo", fee: 150.0, channel: "EmailNotification" },
+        { name: "VIT_Strikers", type: "Squad", fee: 500.0, channel: "SMSNotification" }
+    ];
+
+    function updateFeePreview() {
+        const type = document.getElementById('pType').value;
+        const feePreview = document.getElementById('feePreview');
+        const note = document.getElementById('solidPreviewNote');
+        if (type === "Solo") {
+            feePreview.textContent = "Rs. 150.00";
+            note.textContent = "Channel: EmailNotification (SRP) via INotificationService";
+        } else {
+            feePreview.textContent = "Rs. 500.00";
+            note.textContent = "Channel: SMSNotification (OCP Extension) via INotificationService";
+        }
+    }
+
+    function addLog(type, msg) {
+        const box = document.getElementById('logBox');
+        const el = document.createElement('div');
+        el.className = `log-entry ${type}`;
+        el.innerHTML = `<strong>[${type.toUpperCase()}]</strong> ${msg}`;
+        box.prepend(el);
+    }
+
+    function clearLogs() {
+        document.getElementById('logBox').innerHTML = '';
+    }
+
+    function renderTable() {
+        const tbody = document.getElementById('participantBody');
+        tbody.innerHTML = '';
+        let total = 0;
+        let solo = 0;
+        let squad = 0;
+
+        participants.forEach((p, idx) => {
+            total += p.fee;
+            if (p.type === "Solo") solo++;
+            else squad++;
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${idx + 1}</td>
+                <td><strong>${escapeHtml(p.name)}</strong></td>
+                <td><span class="tag tag-${p.type.toLowerCase()}">${p.type}</span></td>
+                <td>Rs. ${p.fee.toFixed(2)}</td>
+                <td>${p.channel}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+        document.getElementById('statTotal').textContent = participants.length;
+        document.getElementById('statSolo').textContent = solo;
+        document.getElementById('statSquad').textContent = squad;
+        document.getElementById('statFees').textContent = `Rs. ${total.toFixed(2)}`;
+    }
+
+    function handleRegister(e) {
+        e.preventDefault();
+        const name = document.getElementById('pName').value.trim();
+        if (!name) return;
+        const type = document.getElementById('pType').value;
+        const fee = type === "Solo" ? 150.0 : 500.0;
+        const channel = type === "Solo" ? "EmailNotification" : "SMSNotification";
+
+        participants.push({ name, type, fee, channel });
+        renderTable();
+
+        const logType = type === "Solo" ? "email" : "sms";
+        addLog(logType, `Sending ${type === "Solo" ? "Email" : "SMS text"}: Registration successful for ${name}`);
+        addLog("success", `Registered ${name}. Amount due: Rs.${fee}`);
+
+        document.getElementById('pName').value = '';
+    }
+
+    function demoTestNotification(channel) {
+        if (channel === 'email') {
+            addLog('email', 'Sending Email: [CAMPUS ESPORTS ALERT] Tournament brackets are live!');
+        } else {
+            addLog('sms', 'Sending SMS text: [CAMPUS ESPORTS ALERT] Match starts in 15 mins at Arena!');
+        }
+    }
+
+    function escapeHtml(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    }
+</script>
+
+</body>
+</html>

@@ -14,6 +14,7 @@ package.json
 vscode_template.js
 generate_all_screenshots.js
 generate_submission_pdf.js
+generate_demo_screenshots.js
 
 # Temporary build artifacts
 build/

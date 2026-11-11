@@ -9,12 +9,16 @@ SRCS = main.cpp \
        src/RegistrationManager.cpp
 
 OBJS = $(SRCS:.cpp=.o)
-TARGET = campus_esports.exe
+TARGET = campus_esports
+UNIFIED_TARGET = campus_esports_unified
 
-all: $(TARGET)
+all: $(TARGET) $(UNIFIED_TARGET)
 
 $(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
+
+$(UNIFIED_TARGET): campus_esports_unified.cpp
+	$(CXX) $(CXXFLAGS) -o $(UNIFIED_TARGET) campus_esports_unified.cpp
 
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
@@ -22,6 +26,8 @@ $(TARGET): $(OBJS)
 run: $(TARGET)
 	./$(TARGET)
 
-clean:
-	rm -f $(OBJS) $(TARGET)
+run-demo: $(TARGET)
+	./$(TARGET) --demo
 
+clean:
+	rm -f $(OBJS) $(TARGET) $(TARGET).exe $(UNIFIED_TARGET) $(UNIFIED_TARGET).exe

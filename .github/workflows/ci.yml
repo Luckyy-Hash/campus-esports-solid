@@ -44,24 +44,25 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v4
 
-    - name: Set up GCC / MinGW
-      uses: egor-tensin/setup-mingw@v2
+    - name: Set up MSYS2 MinGW
+      uses: msys2/setup-msys2@v2
       with:
-        platform: x64
-
-    - name: Verify MinGW Compiler
-      run: |
-        g++ --version
+        msystem: MINGW64
+        install: mingw-w64-x86_64-gcc
 
     - name: Compile Modular Project
+      shell: msys2 {0}
       run: |
-        g++ -std=c++17 -Wall -Wextra -Iinclude main.cpp src\EmailNotification.cpp src\SMSNotification.cpp src\SoloRegistration.cpp src\SquadRegistration.cpp src\RegistrationManager.cpp -o campus_esports.exe
+        g++ --version
+        g++ -std=c++17 -Wall -Wextra -Iinclude main.cpp src/EmailNotification.cpp src/SMSNotification.cpp src/SoloRegistration.cpp src/SquadRegistration.cpp src/RegistrationManager.cpp -o campus_esports.exe
 
     - name: Compile Unified Project
+      shell: msys2 {0}
       run: |
         g++ -std=c++17 -Wall -Wextra campus_esports_unified.cpp -o campus_esports_unified.exe
 
     - name: Run Windows Verification
+      shell: msys2 {0}
       run: |
-        .\campus_esports.exe --demo
-        .\campus_esports_unified.exe
+        ./campus_esports.exe --demo
+        ./campus_esports_unified.exe
